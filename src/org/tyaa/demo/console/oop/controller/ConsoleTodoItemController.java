@@ -3,6 +3,8 @@ package org.tyaa.demo.console.oop.controller;
 import org.tyaa.demo.console.oop.model.TodoItem;
 import org.tyaa.demo.console.oop.repository.TodoItemRepository;
 
+import java.sql.Date;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Scanner;
 
@@ -19,7 +21,14 @@ public final class ConsoleTodoItemController extends AbstractTodoItemController 
         public void create() {
             System.out.println("Input title then press Enter");
             String title = scanner.nextLine();
-            TodoItem item = new TodoItem(title);
+            System.out.println("Input description then press Enter");
+            String description = scanner.nextLine();
+            System.out.println("Input date (YYYY.MM.DD) then press Enter");
+            String dateString = scanner.nextLine();
+            String[] words = dateString.split("\\s|,|:|\\.");
+            Date date = new Date(Integer.parseInt(words[0]) - 1900, Integer.parseInt(words[1]) - 1, Integer.parseInt((words[2])));
+            System.out.println(date.toString());
+            TodoItem item = new TodoItem(title, description, date);
             todoItemRepository.add(item);
             System.out.println(Constants.PLACEHOLDER_SYMBOLS);
         }
